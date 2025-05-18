@@ -29,9 +29,9 @@ WHERE
 GROUP BY
     1, 2, 3
 HAVING last_transaction_date >= CURDATE() - INTERVAL 1 YEAR
-   AND last_transaction_date < CURDATE()) -- Filter out accounts that has not transacted for over 365 days
+   AND last_transaction_date < CURDATE()) -- Filter out accounts that has not transacted for the last 365 days
 
--- Final SELECT statement to retrieve the plan details of active accounts that has not transacted for over 1 year.
+-- Final SELECT statement to retrieve the plan details of active accounts that has not transacted for 1 year.
 SELECT 
   plan_id, 
   owner_id, 
