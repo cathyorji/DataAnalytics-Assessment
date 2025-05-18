@@ -9,6 +9,7 @@ For each question, I conducted a thorough analysis to determine the specific dat
 Here's a summary of my approach to each question:
 
 #### Question 1 : High-Value Customers with Multiple Products
+
 The query aims to identify customers who have both a savings plan and an investment plan, and then calculate the total deposits made by those customers.
 My approach was to first identify the customers who had both a savings and an investment plan. I achieved this by joining the users_customuser table with the plans_plan table using u.id = p.owner_id. This join allowed me to combine customer information with their plan details.
 To ensure that I'm working with funded plans, I filtered the results using WHERE s.confirmed_amount > 0 and transaction_status ="success". I chose to specifically filter for 'success' transactions in my deposit calculation, although 'reward' also indicates a non-zero amount, because 'success' more clearly aligns with the concept of a standard deposit made by a customer. The 'reward' status might represent a bonus or other incentive, which, while involving an inflow of funds, is not a typical deposit.
@@ -21,6 +22,7 @@ When confirmed_amount is greater than zero, the transaction_status is typically 
 
 #### Question 2 :  Transaction Frequency Analysis
 The query aims to categorize customers based on their average monthly transaction frequency (how many transactions they make per month) and then provide a summary count for each category.
+
 For Question 2, my approach was to categorize customers based on their average monthly transaction frequency. I used two Common Table Expressions (CTEs) to achieve this.
 
 First, I created a CTE called monthly_transaction_counts. In this CTE, I joined the adashi_staging.users_customuser table with the adashi_staging.savings_savingsaccount table using u.id = s.owner_id to link user information with their transaction data. I then grouped the transactions by user and by month, using DATE_FORMAT(s.transaction_date, '%Y-%m'), and counted the number of transactions for each user in each month. 
