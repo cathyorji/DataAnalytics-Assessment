@@ -35,7 +35,7 @@ Determining whether 'reward' transactions should be included in the calculation 
 
 #### Question 3 : Account Inactivity Alert
 
-For Question 3, my approach was to identify savings and investment accounts that have been inactive for one year. I used a Common Table Expression (CTE) called last_transactions to achieve this.
+For Question 3, my approach was to identify savings and investment accounts that is active but has not transacted for one year. I used a Common Table Expression (CTE) called last_transactions to achieve this.
 
 In the last_transactions CTE, I joined the adashi_staging.plans_plan table with the adashi_staging.savings_savingsaccount table using a LEFT JOIN on p.id = s.plan_id.  This allowed me to include plans even if they had no transactions yet. I determined the type of plan ('Savings' or 'Investment') using a CASE statement based on the p.is_regular_savings and p.is_a_fund.
 A key part of this query was determining the last transaction date. I noticed that some account are active but have not performed any transaction since inception. I decided to use a CASE statement with MAX(s.transaction_date) to find plans with no transactions (MAX(s.transaction_date) is NULL), I used the plan's creation date (p.created_on), otherwise, I used the date of the most recent transaction.
