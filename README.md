@@ -16,7 +16,7 @@ To determine if these customers have both a savings and an investment plan, I us
 I then used a GROUP BY clause to group the results by customer (cp.user_id, cp.first_name, cp.last_name) and a HAVING clause to filter  customers who have at least one of each plan type. Finally, I calculated the total deposits for each customer by summing the s.confirmed_amount and converting it from kobo to naira by dividing by 100. The results are ordered in descending order of total_deposits."
 #### Challenges:
 I faced the following challenge:
-Understanding confirmed_amount and transaction_status. I had to carefully analyze these fields in the savings_savingsaccount table to determine which transactions represented actual deposits. I observed that confirmed_amount represents the inflow of cash (deposits) and when confirmed_amount is zero, the transaction_status is often 'failed' or 'pending'.
+Understanding confirmed_amount and transaction_status. I had to carefully analyze these fields in the savings_savingsaccount table to determine which transactions represented actual deposits. I observed that confirmed_amount represents the inflow of cash (deposits) and when confirmed_amount is zero, the transaction_status is often 'failed' or 'pending',"abandoned","reversal" etc.
 When confirmed_amount is greater than zero, the transaction_status is typically 'success' or 'reward'. Therefore, I concluded that only transactions with confirmed_amount > 0 should be considered as deposits. 
 
 #### Question 2 :  Transaction Frequency Analysis
