@@ -8,7 +8,7 @@ For each question, I conducted a thorough analysis to determine the specific dat
 
 Here's a summary of my approach to each question:
 
-*# Question 1: High-Value Customers with Multiple Products
+* Question 1: High-Value Customers with Multiple Products
 The query aims to identify customers who have both a savings plan and an investment plan, and then calculate the total deposits made by those customers.
 My approach was to first identify the customers who had both a savings and an investment plan. I achieved this by joining the users_customuser table with the plans_plan table using u.id = p.owner_id. This join allowed me to combine customer information with their plan details.
 To ensure that I'm working with funded plans, I filtered the results using WHERE s.confirmed_amount > 0.
