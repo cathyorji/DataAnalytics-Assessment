@@ -28,7 +28,7 @@ WHERE
     AND (p.is_regular_savings = 1 OR p.is_a_fund = 1)
 GROUP BY
     1, 2, 3
-HAVING last_transaction_date < DATE_SUB(CURDATE(), INTERVAL 365 DAY)) -- Filter out accounts that have been inactive for less than 365 days
+HAVING last_transaction_date < DATE_SUB(CURDATE(), INTERVAL 365 DAY)) -- Filter out accounts that have been inactive for over 365 days
 
 -- Final SELECT statement to retrieve the plan details of active accounts that has not transacted for over 1 year.
 SELECT 
