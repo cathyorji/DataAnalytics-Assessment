@@ -18,3 +18,13 @@ I then used a GROUP BY clause to group the results by customer (cp.user_id, cp.f
 I faced the following challenge:
 Understanding confirmed_amount and transaction_status. I had to carefully analyze these fields in the savings_savingsaccount table to determine which transactions represented actual deposits. I observed that confirmed_amount represents the inflow of cash (deposits) and when confirmed_amount is zero, the transaction_status is often 'failed' or 'pending'.
 When confirmed_amount is greater than zero, the transaction_status is typically 'success' or 'reward'. Therefore, I concluded that only transactions with confirmed_amount > 0 should be considered as deposits. 
+
+#### Question 1 :  Transaction Frequency Analysis
+The query aims to categorize customers based on their average monthly transaction frequency (how many transactions they make per month) and then provide a summary count for each category.
+For Question 2, my approach was to categorize customers based on their average monthly transaction frequency. I used two Common Table Expressions (CTEs) to achieve this.
+
+First, I created a CTE called monthly_transaction_counts. In this CTE, I joined the adashi_staging.users_customuser table with the adashi_staging.savings_savingsaccount table using u.id = s.owner_id to link user information with their transaction data. I then grouped the transactions by user and by month, using DATE_FORMAT(s.transaction_date, '%Y-%m'), and counted the number of transactions for each user in each month.  I included both 'success' and 'reward' transactions, as indicated by the WHERE s.transaction_status IN ('success', 'reward') clause, because both of these statuses indicate that a transaction was completed and should be counted towards a user's transaction frequency.
+
+Next, I created a second CTE called average_monthly_transactions. This CTE took the results from the monthly_transaction_counts CTE and calculated the average number of transactions per user across all months using AVG(transaction_count).
+
+Finally, in the main query, I categorized each user based on their avg_transactions_per_month into 'High Frequency' (>= 10 transactions), 'Medium Frequency' (3-9 transactions), or 'Low Frequency' (< 3 transactions) using a CASE statement. I then counted the number of users in each category using COUNT(user_id) and calculated the average number of transactions per month for each category using ROUND(AVG(avg_transactions_per_month),2).  The results are grouped by the frequency category."
